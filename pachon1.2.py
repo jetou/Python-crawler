@@ -45,12 +45,13 @@ class douban:
 		items = script.getContents()
 		script.writetext(items)
 		print u"""出现乱码为正常现象，在与本脚本相同的文件夹下会多出一个,
-				doubanbook.txt的文件里面有所爬书籍，如你把本脚本放在桌面,
-				文件夹便会出现在桌面"""
+doubanbook.txt的文件里面有所爬书籍，如你把本脚本放在桌面,
+文件便会出现在桌面"""
 		print u"结束输入 'O' , 联系作者输入 'A'"
 		end = raw_input('>')
 		if end == 'A':
 			print u"QQ邮箱:1021644861@qq.com"
+			raw_input('>')
 		else:
 			print "over"
 
