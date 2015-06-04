@@ -6,7 +6,7 @@ import sys
 # reload(sys)
 # sys.setdefaultencoding('utf-8')
 
-class book:
+class book:     #豆瓣书籍的类
 	def __init__(self, types, page):
 		self.baseUrl = 'http://www.douban.com/tag/'
 		self.types = types
@@ -56,7 +56,7 @@ doubanbook.txt的文件里面有所爬书籍，如你把本脚本放在桌面,
 
 #------------------------------------------------class-------------------------
 
-class movie:
+class movie:     #豆瓣近期热门电影的类
 	def __init__(self):
 		self.baseUrl = 'http://movie.douban.com/chart'
 		self.filename = 'doubanmovie.txt'
@@ -77,13 +77,13 @@ class movie:
 				print u"豆瓣链接错误，错误原因", e.reason
 				return None
 
-	def gettext(self,items):
+	def gettext(self,items): #写入txt
 		for item in items:
 			print item[0],item[1],item[2]
 			files = open(self.filename,'a')
 			files.write(item[0])
 			files.write(item[1])
-			files.write('\n')
+			files.write('\n')   #在写入的文件中加入换行符
 			files.write(item[2])
 			files.write('\n')
 			files.write("评分")
@@ -103,7 +103,7 @@ class movie:
 
 #-------------------class---------------------------------------------------
 
-class TOPmove:
+class TOPmove:   #豆瓣总电影top类
 	def __init__(self, page):
 		self.baseurl = 'http://movie.douban.com/top250?start='
 		self.page = page
@@ -126,7 +126,7 @@ class TOPmove:
 				return None
 
 	def wtext(self,items):
-		remove = re.compile('&nbsp| {4}|;')
+		remove = re.compile('&nbsp| {4}|;')  #在获取的排名中去除 &nbsp ； 空格
 		for item in items:
 			print (' '.join(map(lambda s: re.sub(remove,'',s),item)))
 			files = open(self.filename,'a')
@@ -149,7 +149,7 @@ class TOPmove:
 
 
 #---------------------------------------------------------------book--
-def bookstyle():
+def bookstyle():    #豆瓣爬取得书籍目录
 	print u"请输入你要爬的书籍类型,查看所有类型输入 'V' "
 	booktypes = raw_input(u">")
 	while booktypes == 'V':
@@ -218,7 +218,7 @@ def bookstyle():
 	script.strat()
 #-------------------------------------------movies----------------------------
 
-def optmove():
+def optmove():    #选择要爬热门还是top
 	print u"你想爬近期热门电影还是总电影top？"
 	print u"热门电影输入 'H', 总TOP输入 'T'"
 	opt = raw_input('>')
@@ -232,12 +232,14 @@ def optmove():
 
 def topmove():
 	print u"获取豆瓣电影TOP250"
-	print u"每页top25部影，要爬第几页？"
+	print u"每页top25部影，共10页要爬第几页？"
 	pages = input(">")
 	if pages == 1:
 		page = 0
-	else:
+	elif pages > 1 and pages <= 10:
 		page = (pages - 1) * 25
+	else:
+		page = (10 - 1) * 25
 	topmove = TOPmove(page)
 	topmove.strat()
 
